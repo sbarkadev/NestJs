@@ -1,0 +1,35 @@
+https://tkssharma.com/getting-started-with-nest-js-framework-for-nodejs-apis/
+https://docs.nestjs.com/
+
+package.json 
+nest new nest-rest-api
+
+/* generate a controller called items */ 
+nest g controller items 
+
+
+/* watch the server and update changes => usse ndoemon to constanly watch the server and update it  */
+npm run start:dev
+
+/*  "get the Hello wolrd!"  default behaviour */
+localhost:3000 
+
+localhost:3000/items  {"statusCode":404,"message":"Cannot GET /items","error":"Not Found"}
+
+
+to create an endpoint we use decorator 
+
+
+
+curl -X POST http://localhost:3000/items -H "Content-Type: application/json" --data '{ "name" : "Item One" , "qty" : 100 , "description" : "This is item one" }'
+curl -X PUT http://localhost:3000/items/3  -H "Content-Type: application/json" --data '{ "name" : "Item One" , "qty" : 100 , "description" : "This is item one" }'
+
+
+
+
+- to deal withd atabase we need a service
+- generate a service 
+nest g service items
+
+
+@Injectable() ????????
