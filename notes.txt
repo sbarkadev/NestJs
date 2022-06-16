@@ -202,4 +202,17 @@ when we use (npx prisma migrate dev) => prisma also does (npx prisma generate)
 
 generate will create typescript types for your  schema , it creates User interfaces / classes
 
-//-
+- inspect our databse with prisma studio (npx prisma studio)
+- prisma studio will connect to the databse in .env file 
+
+- so we created prisma migrations folder (prisma migration dev) and we created prisma.schema (prisma init)
+
+
+create a module to encapsulate all database stuff
+- nest g module prisma 
+
+- create servcie called prisma without spec file for testing
+- nest g service  prisma --no-spec
+
+-----------------
+nestjs use DTO data transfer object , is just an object where you push your data from a request and you can run validation on it 

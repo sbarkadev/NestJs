@@ -4,6 +4,10 @@ import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 
   @Module({
+    // make AuthModule access to the prisma Module , or just make it Global
+    //imports: [PrismaModule],
+
+
     // add controller and provider to the Module
     controllers: [AuthController],
     providers: [AuthService],
