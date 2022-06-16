@@ -92,6 +92,49 @@ responsible for executing the business logic
 
 
 
+@Injectable({}) means it's going to be able to use the dependency injection that NestJs uses under the hood 
+
+what are dependency injection :
+    we have authService class
+    we have AuthControlelr class
+    usually the controller need to class AuthService class
+    Controller will receive the request from the internet ( post request asking to login a user) 
+    Controller will call a function from AuthService and return it's result back to the client back to the browser
+
+    ===> to do that AuthController have to instanciate a AuthService class
+    inside controller  const service = new AuthService()
+    => to avoid doing that  : manage where it's created , and who manages it all we usee "dependency injection"
+    => instead of our controller to actually do 
+
+        import { Controller } from "@nestjs/common";
+        import { AuthService } from "./auth.service";
+
+        @Controller()
+        export class AuthController {
+            constructor() {
+                const service = new AuthService();
+            }
+        }
+
+        it will do  :
+
+        import { Controller } from "@nestjs/common";
+        import { AuthService } from "./auth.service";
+
+        @Controller()
+        export class AuthController {
+            /* we dont need to wowrry about instanciation of AuthService and how to pass it to the controller file  
+                nestjs will handle on itself , how to instanciate the authService , and how to pass it to you in that AuthCiontrolelr
+            */
+            constructor(private authService: AuthService) {
+               
+            }
+        }
+
+
+    dependency injection allows us to do not handle dependency management
+
+
 
 
 
