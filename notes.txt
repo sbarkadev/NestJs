@@ -137,4 +137,69 @@ what are dependency injection :
 localhost:3000/auth/signin
 
 
+they are libraries like SQLITE typeORM , mongoose that allow you to connect to database
+but we eill use Prisma a typescript ORM 
 
+Prisma is a query builder, but it's so easy to use basically we define a  model
+
+with prisma we're going to create teh database connection logic , the database module in a  way .
+
+
+==> we need to create a nother module . since the databse moduel will be able to be used by auth module
+(login signup) . it should be used by bookmark module , user module
+
+==>  the databse is a new feature of our app
+
+
+=> to use prisma we need to have two librariries installed => 
+Prisma CLI => allow us to create our schema  and run migrations , deploy migrations into the databse , it's more of a maintenance library
+
+Prisma client : prisma have different clients , the one we're going to use is for javascript
+
+https://www.prisma.io/docs/concepts/components/prisma-cli/installation
+npm install prisma --save-dev
+
+https://www.npmjs.com/package/@prisma/client
+npm i @prisma/client
+
+
+access to prisma CLI
+npx prisma init 
+        ==> 
+            - it will generate several files for us
+            - generate .env file for the environement variables
+            - it creates a postgres connection string by default 
+            - generate prisma folder in thre root directory ( schema.prisma is where we will declare our models)
+            (type ORM create entities place them in your logic != prisma one single place)
+
+- dOCKER compose will automatically allow us to create and destroy docker containers 
+
+- use the relational database postgres version 13
+- database will be exported on the port 5434
+
+https://polar-hub-a40.notion.site/docker-Kubernetes-1-177bcf589dfc47e19d5f773af037a26a 
+
+- to launch our database
+
+- docker compose up dev-db -d (-d is for run it in the background)
+
+- brew install docker-compose
+
+docker-compose up dev-db -d
+
+
+docker logs 17dc51b9523a  => database system is ready to accept connections
+
+
+-----------------------------
+prisma will allow us to access to our local database
+npx prisma --help
+
+npx prisma migrate dev => will read schema.prisma and will generate the migrations
+
+----------------------------------
+when we use (npx prisma migrate dev) => prisma also does (npx prisma generate)
+
+generate will create typescript types for your  schema , it creates User interfaces / classes
+
+//-

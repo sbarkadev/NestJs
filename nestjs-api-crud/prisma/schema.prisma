@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  // it will use the prigma client js library with we installed
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // the url is the connection to the database
+  // it will get it from first environement file that it will find
+  url      = env("DATABASE_URL")
+}
+
+
+// create our models : Users , Bookmarks , we oonly have two entities in our app 
+//@id tell prisma that is a n id
+
+model User {
+  id Int @id @default(autoincrement())
+  // when the record is created in the database the time of creation is assigned to that variable
+  createsAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email String
+  hash String
+
+  // two optional fields
+  firstName String?
+  lastName String?
+}
+
+model Bookmark {
+  id Int @id @default(autoincrement())
+  createsAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title String
+  description String?
+  link String
+}
