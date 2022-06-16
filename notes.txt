@@ -33,3 +33,65 @@ nest g service items
 
 
 @Injectable() ????????
+
+
+
+npm i -g @nestjs/cli =? gives u the command line interface to be able to generate modules ad services
+
+npm i @nestjs/typeorm typeorm pg @nestjs/config
+
+in .env : list environement variables for the postgres database
+
+use typeorm  : object relational mapper , basically conencts database through entities
+
+
+prisma
+https://progressivecoder.com/build-a-nestjs-prisma-rest-api/
+
+
+
+https://www.youtube.com/watch?v=GHTA143_b-s
+for nest modules are very important : app.module.ts is a global file
+app.module.ts is the main module of the app that will import other modules
+
+
+https://docs.nestjs.com/modules
+Modules
+A module is a class annotated with a @Module() decorator. The @Module() decorator provides metadata 
+that Nest makes use  of to organize the application structure
+
+decorator is a  function that add some metadata to the current class or function 
+
+a module can import other modules (Application Module can import USER/ORDERS/CHAT/.. Modules)
+every mODULE CAN import controllers and providers
+
+
+usually we orgonize modules into feature modules , so if we have an application , where we have bookmarks,
+authentication logic , login , sign up , user module ( that handles logic related to the user) , database module
+==? breaking down you app into modules
+
+
+Modules in nestjs organizie  your app
+
+
+authentication mODULE
+
+
+launch our application --> bootstrap logic is inside main.ts
+
+
+generate a module with nest   == > nest g module user | nest g module bookmark
+
+when we build a nestjs application : we separate our logic into controllers and service  
+Controllers
+Controllers are responsible for handling incoming requests and returning responses to the client.
+
+Providers || services
+responsible for executing the business logic
+
+
+
+
+
+
+
