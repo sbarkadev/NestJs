@@ -123,8 +123,7 @@ what are dependency injection :
 
         @Controller()
         export class AuthController {
-            /* we dont need to wowrry about instanciation of AuthService and how to pass it to the controller file  
-                nestjs will handle on itself , how to instanciate the authService , and how to pass it to you in that AuthCiontrolelr
+            /* we dont need to wowrry about inƒ how to instanciate the authService , and how to pass it to you in that AuthCiontrolelr
             */
             constructor(private authService: AuthService) {
                
@@ -216,3 +215,10 @@ create a module to encapsulate all database stuff
 
 -----------------
 nestjs use DTO data transfer object , is just an object where you push your data from a request and you can run validation on it 
+
+-----------------------------
+https://wanago.io/2021/03/29/api-nestjs-prisma-postgresql/
+To start using Prisma, we first need to install it
+    npm install prisma
+Once that’s done, we can start using the Prisma CLI. The first thing we want to do is to initialize our configuration
+    npx prisma init
