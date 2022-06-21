@@ -222,3 +222,9 @@ To start using Prisma, we first need to install it
     npm install prisma
 Once that’s done, we can start using the Prisma CLI. The first thing we want to do is to initialize our configuration
     npx prisma init
+
+
+
+
+
+nest new APP_NAME --skip-git
