@@ -42,6 +42,8 @@ npm i @nestjs/typeorm typeorm pg @nestjs/config
 
 in .env : list environement variables for the postgres database
 
+
+
 use typeorm  : object relational mapper , basically conencts database through entities
 
 
@@ -228,3 +230,16 @@ Once that’s done, we can start using the Prisma CLI. The first thing we want t
 
 
 nest new APP_NAME --skip-git
+
+
+--------------------------------------------------------
+NestJs   -    socket .io
+Build A WEbDocket server
+
+nest new chat --skip-git
+
+nest g gateway App
+
+npm install @types/socket.io
+npm install @nestjs/websockets
+npm install @nestjs/platform-socket.io
