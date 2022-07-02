@@ -42,6 +42,6 @@ export class AppController {
   @Get('/usersOfRoom')
   getUserOfRoom(): Promise<UserInRoom[]>
   {
-    return this.appService.getUsersOfRoom(2);
+    return this.appService.getUsersOfRoom(2)
   }
 }

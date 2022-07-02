@@ -73,6 +73,17 @@ let AppService = class AppService {
         });
         return userInRoom;
     }
+    async sendMessageToRoom(room_id, content_msg, user_id) {
+        const messageRoom = await this.prisma.messageRoom.create({
+            data: {
+                from: user_id,
+                to_room: room_id,
+                content_msg: content_msg,
+                wasRead: false,
+            }
+        });
+        return messageRoom;
+    }
 };
 AppService = __decorate([
     (0, common_1.Injectable)(),

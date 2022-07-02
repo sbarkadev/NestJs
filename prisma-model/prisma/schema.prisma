@@ -80,6 +80,7 @@ model User {
 
   ladder_level Int
   rooms UserInRoom[]
+  messages MessageRoom[]
 }
 
 
@@ -103,4 +104,18 @@ model Room {
   type String 
   users UserInRoom[]
   password String
+  messages MessageRoom[]
+
+}
+
+model MessageRoom {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @db.Date
+  user User @relation(fields: [from] , references: [id])
+  from Int
+  room Room @relation(fields: [to_room] , references: [id])
+  to_room Int
+  content_msg String
+  wasRead Boolean
+
 }
