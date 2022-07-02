@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// // every user can access to multiple rooms
+// // every user can be owne of multiple rooms
+
+// model User {
+
+//   id Int @id @default(autoincrement())
+//   avatar String ?
+//   token42_api String @unique
+//   username String @unique
+//   email   String ? @unique
+//   phoneNumber  String ?  @unique
+//   tokenGoogle_api  String ?  @unique
+//   tokenSms_api  String ?  @unique
+//   losses Int 
+//   wins Int
+//   ladder_level Int
+//   owner_rooms Room[]
+//   rooms UserInRoom[]
+// }
+
+
+// model UserInRoom {
+//   user User @relation(fields: [userId] , references: [id])
+//   userId Int
+//   room Room @relation(fields: [roomId], references: [id])
+//   roomId Int
+//   user_role String
+
+//   @@id([userId , roomId])
+
+// }
+
+// // a room can have one  User owner (1 - 1)
+// // a room can have multiple admin  (0 - n)
+// // a room can have multiple users  (1 - n)
+// model Room {
+//   id Int @id @default(autoincrement())
+//   name String @unique
+//   type String 
+//   users UserInRoom[]
+//   owner User @relation(fields: [owner_id] , references : [id])
+//   owner_id Int
+//   password String
+// }
+
+
+
+
+//insert into "Room" (name , type , password) VALUES ('room1', 'Pub','123456789');
+//insert into "User" (token42_api , username, losses,wins , ladder_level) VALUES ('api42', 'sbarka' , 0, 0, 0);
+// insert into "UserInRoom" (userId , roomId , user_role) VALUES (1, 1,'owner');
+
+// every user can access to multiple rooms
+// every user can be owne of multiple rooms
+
+model User {
+
+  id Int @id @default(autoincrement())
+  avatar String ?
+  token42_api String @unique
+  username String @unique
+  email   String ? @unique
+  phoneNumber  String ?  @unique
+  tokenGoogle_api  String ?  @unique
+  tokenSms_api  String ?  @unique
+  losses Int 
+  wins Int
+
+  ladder_level Int
+  rooms UserInRoom[]
+}
+
+
+model UserInRoom {
+  user User @relation(fields: [userId] , references: [id])
+  userId Int
+  room Room @relation(fields: [roomId], references: [id])
+  roomId Int
+  user_role String
+
+  @@id([userId , roomId])
+
+}
+
+// a room can have one  User owner (1 - 1)
+// a room can have multiple admin  (0 - n)
+// a room can have multiple users  (1 - n)
+model Room {
+  id Int @id @default(autoincrement())
+  name String @unique
+  type String 
+  users UserInRoom[]
+  password String
+}
