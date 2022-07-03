@@ -8,4 +8,5 @@ export declare class AppService {
     addUserToRoom(room_id: number, user_id: number): Promise<UserInRoom>;
     getUsersOfRoom(room_id: number): Promise<UserInRoom[]>;
     sendMessageToRoom(room_id: number, content_msg: string, user_id: number): Promise<MessageRoom>;
+    getMessages(room_id: number): Promise<MessageRoom[]>;
 }

@@ -86,6 +86,16 @@ async sendMessageToRoom(room_id : number , content_msg : string , user_id : numb
 }
 
 
+async getMessages(room_id : number ): Promise<MessageRoom[]> {
+  const messageRoom = await this.prisma.messageRoom.findMany ({
+    where :{ to_room : room_id },
+    orderBy : {id : 'desc' }
+
+  });
+  
+  return messageRoom;
+}
+
 
 }
 

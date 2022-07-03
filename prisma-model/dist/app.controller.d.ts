@@ -1,4 +1,4 @@
-import { UserInRoom } from '@prisma/client';
+import { MessageRoom, UserInRoom } from '@prisma/client';
 import { AppService } from './app.service';
 export declare class AppController {
     private readonly appService;
@@ -8,4 +8,5 @@ export declare class AppController {
     addUserToRoom(): void;
     getUserOfRoom(): Promise<UserInRoom[]>;
     sendMessageToRoom(): void;
+    getMessages(room_id: number): Promise<MessageRoom[]>;
 }

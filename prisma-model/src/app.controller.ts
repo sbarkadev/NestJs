@@ -61,20 +61,11 @@ export class AppController {
     
   }
 
-
-  // @Get('/selectMessages')
-  // selectMessages(): void
-  // {
-  //   this.appService.sendMessageToRoom(2,'hi guys',1);
-  //   this.appService.sendMessageToRoom(2,'how are uu ???',1);
-
-  //   this.appService.sendMessageToRoom(2,'fine and you?',4);
-  //   this.appService.sendMessageToRoom(2,'alaa slamaa zyomnat',6);
+  @Get('/getMessages')
+  getMessages(room_id : number): Promise<MessageRoom[]>
+  {
+    return this.appService.getMessages(2);
+  }
 
 
-  //   this.appService.sendMessageToRoom(1,'salam',3);
-  //   this.appService.sendMessageToRoom(1,'salam labass ?',5);
-
-    
-  // }
 }

@@ -84,6 +84,13 @@ let AppService = class AppService {
         });
         return messageRoom;
     }
+    async getMessages(room_id) {
+        const messageRoom = await this.prisma.messageRoom.findMany({
+            where: { to_room: room_id },
+            orderBy: { id: 'desc' }
+        });
+        return messageRoom;
+    }
 };
 AppService = __decorate([
     (0, common_1.Injectable)(),

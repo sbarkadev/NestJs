@@ -47,6 +47,9 @@ let AppController = class AppController {
         this.appService.sendMessageToRoom(1, 'salam', 3);
         this.appService.sendMessageToRoom(1, 'salam labass ?', 5);
     }
+    getMessages(room_id) {
+        return this.appService.getMessages(2);
+    }
 };
 __decorate([
     (0, common_1.Get)('/createUsers'),
@@ -78,6 +81,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "sendMessageToRoom", null);
+__decorate([
+    (0, common_1.Get)('/getMessages'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "getMessages", null);
 AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])
