@@ -80,7 +80,7 @@ let AppService = class AppService {
                 to_room: room_id,
                 content_msg: content_msg,
                 wasRead: false,
-            }
+            },
         });
         return messageRoom;
     }

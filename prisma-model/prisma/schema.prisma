@@ -110,7 +110,7 @@ model Room {
 
 model MessageRoom {
   id Int @id @default(autoincrement())
-  createdAt DateTime @db.Date
+  createdAt DateTime @default(now())
   user User @relation(fields: [from] , references: [id])
   from Int
   room Room @relation(fields: [to_room] , references: [id])

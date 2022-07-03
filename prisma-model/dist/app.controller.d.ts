@@ -7,4 +7,5 @@ export declare class AppController {
     createRoom(): void;
     addUserToRoom(): void;
     getUserOfRoom(): Promise<UserInRoom[]>;
+    sendMessageToRoom(): void;
 }

@@ -34,6 +34,18 @@ CREATE TABLE "Room" (
     CONSTRAINT "Room_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "MessageRoom" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "from" INTEGER NOT NULL,
+    "to_room" INTEGER NOT NULL,
+    "content_msg" TEXT NOT NULL,
+    "wasRead" BOOLEAN NOT NULL,
+
+    CONSTRAINT "MessageRoom_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_token42_api_key" ON "User"("token42_api");
 
@@ -60,3 +72,9 @@ ALTER TABLE "UserInRoom" ADD CONSTRAINT "UserInRoom_userId_fkey" FOREIGN KEY ("u
 
 -- AddForeignKey
 ALTER TABLE "UserInRoom" ADD CONSTRAINT "UserInRoom_roomId_fkey" FOREIGN KEY ("roomId") REFERENCES "Room"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MessageRoom" ADD CONSTRAINT "MessageRoom_from_fkey" FOREIGN KEY ("from") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MessageRoom" ADD CONSTRAINT "MessageRoom_to_room_fkey" FOREIGN KEY ("to_room") REFERENCES "Room"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

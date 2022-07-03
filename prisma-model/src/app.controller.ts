@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { User, UserInRoom } from '@prisma/client';
+import { MessageRoom, User, UserInRoom } from '@prisma/client';
 import { AppService } from './app.service';
 
 @Controller()
@@ -43,5 +43,21 @@ export class AppController {
   getUserOfRoom(): Promise<UserInRoom[]>
   {
     return this.appService.getUsersOfRoom(2)
+  }
+
+  @Get('/sendMessage')
+  sendMessageToRoom(): void
+  {
+    this.appService.sendMessageToRoom(2,'hi guys',1);
+    this.appService.sendMessageToRoom(2,'how are uu ???',1);
+
+    this.appService.sendMessageToRoom(2,'fine and you?',4);
+    this.appService.sendMessageToRoom(2,'alaa slamaa zyomnat',6);
+
+
+    this.appService.sendMessageToRoom(1,'salam',3);
+    this.appService.sendMessageToRoom(1,'salam labass ?',5);
+
+    
   }
 }

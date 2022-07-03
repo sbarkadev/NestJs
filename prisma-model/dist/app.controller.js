@@ -39,6 +39,14 @@ let AppController = class AppController {
     getUserOfRoom() {
         return this.appService.getUsersOfRoom(2);
     }
+    sendMessageToRoom() {
+        this.appService.sendMessageToRoom(2, 'hi guys', 1);
+        this.appService.sendMessageToRoom(2, 'how are uu ???', 1);
+        this.appService.sendMessageToRoom(2, 'fine and you?', 4);
+        this.appService.sendMessageToRoom(2, 'alaa slamaa zyomnat', 6);
+        this.appService.sendMessageToRoom(1, 'salam', 3);
+        this.appService.sendMessageToRoom(1, 'salam labass ?', 5);
+    }
 };
 __decorate([
     (0, common_1.Get)('/createUsers'),
@@ -64,6 +72,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getUserOfRoom", null);
+__decorate([
+    (0, common_1.Get)('/sendMessage'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "sendMessageToRoom", null);
 AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])
