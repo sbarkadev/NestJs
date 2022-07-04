@@ -1,4 +1,5 @@
 import { MessageRoom, User, UserInRoom } from '@prisma/client';
+import { usersName } from './DTO/users-name.dto';
 import { PrismaService } from './prisma/prisma.service';
 export declare class AppService {
     private prisma;
@@ -9,4 +10,5 @@ export declare class AppService {
     getUsersOfRoom(room_id: number): Promise<UserInRoom[]>;
     sendMessageToRoom(room_id: number, content_msg: string, user_id: number): Promise<MessageRoom>;
     getMessages(room_id: number): Promise<MessageRoom[]>;
+    getusers(): Promise<usersName[]>;
 }

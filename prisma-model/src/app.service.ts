@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MessageRoom, PrismaClient, Room, User, UserInRoom, } from '@prisma/client';
+import { usersName } from './DTO/users-name.dto';
 import { PrismaService } from './prisma/prisma.service';
 
 @Injectable()
@@ -78,7 +79,7 @@ async sendMessageToRoom(room_id : number , content_msg : string , user_id : numb
       from : user_id ,
       to_room : room_id,
       content_msg :content_msg,
-      wasRead : false,
+      wasRead : true,
     },
   });
   
@@ -90,6 +91,7 @@ async getMessages(room_id : number ): Promise<MessageRoom[]> {
   const messageRoom = await this.prisma.messageRoom.findMany ({
     where :{ to_room : room_id },
     orderBy : {id : 'desc' }
+   
 
   });
   
@@ -97,6 +99,17 @@ async getMessages(room_id : number ): Promise<MessageRoom[]> {
 }
 
 
+async getusers(): Promise<usersName[]> {
+  const users = await this.prisma.user.findMany({
+    select : {
+      username : true
+    },
+  });
+  
+  return users;
 }
+
+}
+
 
 

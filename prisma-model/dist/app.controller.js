@@ -50,6 +50,15 @@ let AppController = class AppController {
     getMessages(room_id) {
         return this.appService.getMessages(2);
     }
+    getUsers() {
+        let result;
+        this.appService.getusers().then(value => {
+            result = value;
+            console.log(result);
+        });
+        console.log(result);
+        return result;
+    }
 };
 __decorate([
     (0, common_1.Get)('/createUsers'),
@@ -87,6 +96,12 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getMessages", null);
+__decorate([
+    (0, common_1.Get)('/getUsers'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Array)
+], AppController.prototype, "getUsers", null);
 AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])

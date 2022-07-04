@@ -79,7 +79,7 @@ let AppService = class AppService {
                 from: user_id,
                 to_room: room_id,
                 content_msg: content_msg,
-                wasRead: false,
+                wasRead: true,
             },
         });
         return messageRoom;
@@ -90,6 +90,14 @@ let AppService = class AppService {
             orderBy: { id: 'desc' }
         });
         return messageRoom;
+    }
+    async getusers() {
+        const users = await this.prisma.user.findMany({
+            select: {
+                username: true
+            },
+        });
+        return users;
     }
 };
 AppService = __decorate([

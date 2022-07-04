@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { MessageRoom, User, UserInRoom } from '@prisma/client';
 import { AppService } from './app.service';
+import { usersName } from './DTO/users-name.dto';
 
 @Controller()
 export class AppController {
@@ -65,6 +66,20 @@ export class AppController {
   getMessages(room_id : number): Promise<MessageRoom[]>
   {
     return this.appService.getMessages(2);
+  }
+
+
+  @Get('/getUsers')
+  getUsers(): usersName[]
+  {
+    let result : usersName[];
+    this.appService.getusers().then(value =>{
+      result = value;
+      console.log(result);
+    });
+    console.log(result);
+    return result;
+
   }
 
 
