@@ -191,6 +191,7 @@ docker-compose up dev-db -d
 
 docker logs 17dc51b9523a  => database system is ready to accept connections
 
+brew install docker-compose 
 
 -----------------------------
 prisma will allow us to access to our local database

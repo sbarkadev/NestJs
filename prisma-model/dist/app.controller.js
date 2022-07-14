@@ -51,13 +51,9 @@ let AppController = class AppController {
         return this.appService.getMessages(2);
     }
     getUsers() {
-        let result;
-        this.appService.getusers().then(value => {
-            result = value;
-            console.log(result);
+        return this.appService.getusers().then(value => {
+            console.log(value);
         });
-        console.log(result);
-        return result;
     }
 };
 __decorate([
@@ -100,7 +96,7 @@ __decorate([
     (0, common_1.Get)('/getUsers'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Array)
+    __metadata("design:returntype", Promise)
 ], AppController.prototype, "getUsers", null);
 AppController = __decorate([
     (0, common_1.Controller)(),

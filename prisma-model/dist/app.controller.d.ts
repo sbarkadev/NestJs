@@ -10,5 +10,5 @@ export declare class AppController {
     getUserOfRoom(): Promise<UserInRoom[]>;
     sendMessageToRoom(): void;
     getMessages(room_id: number): Promise<MessageRoom[]>;
-    getUsers(): usersName[];
+    getUsers(): Promise<usersName[]>;
 }

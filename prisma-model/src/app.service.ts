@@ -105,7 +105,6 @@ async getusers(): Promise<usersName[]> {
       username : true
     },
   });
-  
   return users;
 }
 

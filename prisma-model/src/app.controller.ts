@@ -5,7 +5,9 @@ import { usersName } from './DTO/users-name.dto';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) {
+ // this.result = "";
+  }
 
   @Get('/createUsers')
   createUser(): void 
@@ -69,18 +71,25 @@ export class AppController {
   }
 
 
+//   @Get('/getUsers')
+//   getUsers(): usersName[]
+//   {
+//     let result : usersName[];
+//     this.appService.getusers().then(value =>{
+//       result = value;
+//     console.log("inside : " ,  result);
+//     });
+//     console.log("outside : " , result);
+//     return result;
+//
+//   }
+
   @Get('/getUsers')
-  getUsers(): usersName[]
+ getUsers(): Promise<usersName[]>
   {
-    let result : usersName[];
-    this.appService.getusers().then(value =>{
-      result = value;
-      console.log(result);
-    });
-    console.log(result);
-    return result;
-
+        return  this.appService.getusers().then(value => {
+            console.log(value);
+        });
   }
-
 
 }
