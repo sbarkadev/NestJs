@@ -28,6 +28,14 @@ let AppService = class AppService {
         });
         return createUser;
     }
+    async getusersNames() {
+        const users = await this.prisma.user.findMany({
+            select: {
+                username: true
+            },
+        });
+        return users;
+    }
     async createRoom(user_id, room_name, room_type, pass) {
         const createUserInRoom = await this.prisma.userInRoom.create({
             data: {
@@ -48,6 +56,31 @@ let AppService = class AppService {
         });
         return createUserInRoom;
     }
+    async getUsersOfRoom(room_id) {
+        const userInRoom = await this.prisma.userInRoom.findMany({
+            where: { roomId: room_id },
+            include: { user: true }
+        });
+        return userInRoom;
+    }
+    async getRooms(user_id) {
+        const rooms = await this.prisma.userInRoom.findMany({
+            where: { userId: user_id },
+            select: {
+                user_role: true,
+                userId: false,
+                roomId: false,
+                room: {
+                    select: {
+                        name: true,
+                        type: true,
+                        users: false
+                    }
+                }
+            },
+        });
+        return rooms;
+    }
     async addUserToRoom(room_id, user_id) {
         const createUserInRoom = await this.prisma.userInRoom.create({
             data: {
@@ -66,13 +99,6 @@ let AppService = class AppService {
         });
         return createUserInRoom;
     }
-    async getUsersOfRoom(room_id) {
-        const userInRoom = await this.prisma.userInRoom.findMany({
-            where: { roomId: room_id },
-            include: { user: true }
-        });
-        return userInRoom;
-    }
     async sendMessageToRoom(room_id, content_msg, user_id) {
         const messageRoom = await this.prisma.messageRoom.create({
             data: {
@@ -90,14 +116,6 @@ let AppService = class AppService {
             orderBy: { id: 'desc' }
         });
         return messageRoom;
-    }
-    async getusers() {
-        const users = await this.prisma.user.findMany({
-            select: {
-                username: true
-            },
-        });
-        return users;
     }
 };
 AppService = __decorate([

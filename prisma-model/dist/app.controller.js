@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
@@ -25,16 +28,23 @@ let AppController = class AppController {
         this.appService.createUser('token6', 'mohammed', 0, 0, 0);
         this.appService.createUser('token7', 'sara', 0, 0, 0);
     }
+    async getUsersNames() {
+        let users;
+        await this.appService.getusersNames().then(value => {
+            users = value;
+        });
+        return users;
+    }
     createRoom() {
         this.appService.createRoom(2, 'room1', 'PUB', '');
         this.appService.createRoom(1, 'room2', 'PUB', '');
         this.appService.createRoom(3, 'room3', 'PROT', '123456789');
     }
-    addUserToRoom() {
-        this.appService.addUserToRoom(2, 4);
-        this.appService.addUserToRoom(2, 6);
-        this.appService.addUserToRoom(1, 7);
-        this.appService.addUserToRoom(1, 5);
+    addUserToRoom(room, user) {
+        this.appService.addUserToRoom(room, user);
+    }
+    getRooms(id) {
+        return this.appService.getRooms(parseInt(id));
     }
     getUserOfRoom() {
         return this.appService.getUsersOfRoom(2);
@@ -50,11 +60,6 @@ let AppController = class AppController {
     getMessages(room_id) {
         return this.appService.getMessages(2);
     }
-    getUsers() {
-        return this.appService.getusers().then(value => {
-            console.log(value);
-        });
-    }
 };
 __decorate([
     (0, common_1.Get)('/createUsers'),
@@ -63,17 +68,32 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "createUser", null);
 __decorate([
+    (0, common_1.Get)('/getUsersNames'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "getUsersNames", null);
+__decorate([
     (0, common_1.Get)('/createRooms'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "createRoom", null);
 __decorate([
-    (0, common_1.Get)('/addUsers'),
+    (0, common_1.Get)('/addUsers/:id_room/:id_user'),
+    __param(0, (0, common_1.Param)('id_room')),
+    __param(1, (0, common_1.Param)('id_user')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "addUserToRoom", null);
+__decorate([
+    (0, common_1.Get)('/getRooms/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "getRooms", null);
 __decorate([
     (0, common_1.Get)('/usersOfRoom'),
     __metadata("design:type", Function),
@@ -92,12 +112,6 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getMessages", null);
-__decorate([
-    (0, common_1.Get)('/getUsers'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], AppController.prototype, "getUsers", null);
 AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])

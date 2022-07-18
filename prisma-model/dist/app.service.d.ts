@@ -5,10 +5,17 @@ export declare class AppService {
     private prisma;
     constructor(prisma: PrismaService);
     createUser(token42_api: string, username: string, losses: number, wins: number, ladder_level: number): Promise<User>;
+    getusersNames(): Promise<usersName[]>;
     createRoom(user_id: number, room_name: string, room_type: string, pass: string): Promise<UserInRoom>;
-    addUserToRoom(room_id: number, user_id: number): Promise<UserInRoom>;
     getUsersOfRoom(room_id: number): Promise<UserInRoom[]>;
+    getRooms(user_id: number): Promise<{
+        room: {
+            name: string;
+            type: string;
+        };
+        user_role: string;
+    }[]>;
+    addUserToRoom(room_id: number, user_id: number): Promise<UserInRoom>;
     sendMessageToRoom(room_id: number, content_msg: string, user_id: number): Promise<MessageRoom>;
     getMessages(room_id: number): Promise<MessageRoom[]>;
-    getusers(): Promise<usersName[]>;
 }
