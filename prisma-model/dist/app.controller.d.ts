@@ -5,7 +5,7 @@ export declare class AppController {
     constructor(appService: AppService);
     createUser(): void;
     getUsersNames(): Promise<any>;
-    createRoom(): void;
+    createRoom(): Promise<void>;
     addUserToRoom(room: any, user: any): void;
     getRooms(id: any): Promise<{
         user_role: string;
@@ -14,7 +14,7 @@ export declare class AppController {
             type: string;
         };
     }[]>;
-    getUserOfRoom(): Promise<UserInRoom[]>;
+    getUserOfRoom(id: any): Promise<UserInRoom[]>;
     sendMessageToRoom(): void;
-    getMessages(room_id: number): Promise<MessageRoom[]>;
+    getMessages(room_id: any): Promise<MessageRoom[]>;
 }

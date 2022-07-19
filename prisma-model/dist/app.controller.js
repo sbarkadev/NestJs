@@ -35,30 +35,30 @@ let AppController = class AppController {
         });
         return users;
     }
-    createRoom() {
-        this.appService.createRoom(2, 'room1', 'PUB', '');
-        this.appService.createRoom(1, 'room2', 'PUB', '');
-        this.appService.createRoom(3, 'room3', 'PROT', '123456789');
+    async createRoom() {
+        await this.appService.createRoom(2, 'room1', 'PUB', '');
+        await this.appService.createRoom(1, 'room2', 'PUB', '');
+        await this.appService.createRoom(3, 'room3', 'PROT', '123456789');
     }
     addUserToRoom(room, user) {
-        this.appService.addUserToRoom(room, user);
+        this.appService.addUserToRoom(parseInt(room), parseInt(user));
     }
     getRooms(id) {
         return this.appService.getRooms(parseInt(id));
     }
-    getUserOfRoom() {
-        return this.appService.getUsersOfRoom(2);
+    getUserOfRoom(id) {
+        return this.appService.getUsersOfRoom(parseInt(id));
     }
     sendMessageToRoom() {
         this.appService.sendMessageToRoom(2, 'hi guys', 1);
         this.appService.sendMessageToRoom(2, 'how are uu ???', 1);
-        this.appService.sendMessageToRoom(2, 'fine and you?', 4);
-        this.appService.sendMessageToRoom(2, 'alaa slamaa zyomnat', 6);
+        this.appService.sendMessageToRoom(2, 'fine and you?', 7);
+        this.appService.sendMessageToRoom(2, 'alaa slamaa zyonat', 2);
         this.appService.sendMessageToRoom(1, 'salam', 3);
-        this.appService.sendMessageToRoom(1, 'salam labass ?', 5);
+        this.appService.sendMessageToRoom(1, 'salam labass ?', 7);
     }
     getMessages(room_id) {
-        return this.appService.getMessages(2);
+        return this.appService.getMessages(parseInt(room_id));
     }
 };
 __decorate([
@@ -77,7 +77,7 @@ __decorate([
     (0, common_1.Get)('/createRooms'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AppController.prototype, "createRoom", null);
 __decorate([
     (0, common_1.Get)('/addUsers/:id_room/:id_user'),
@@ -95,9 +95,10 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "getRooms", null);
 __decorate([
-    (0, common_1.Get)('/usersOfRoom'),
+    (0, common_1.Get)('/usersOfRoom/:id'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getUserOfRoom", null);
 __decorate([
@@ -107,9 +108,10 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "sendMessageToRoom", null);
 __decorate([
-    (0, common_1.Get)('/getMessages'),
+    (0, common_1.Get)('/getMessages/:id'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getMessages", null);
 AppController = __decorate([
