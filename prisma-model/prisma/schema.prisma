@@ -68,9 +68,9 @@ datasource db {
 model User {
 
   //id Int @id @default(autoincrement())
+  username String @id 
   avatar String ?
   token42_api String @unique
-  username String @id
   email   String ? @unique
   phoneNumber  String ?  @unique
   tokenGoogle_api  String ?  @unique

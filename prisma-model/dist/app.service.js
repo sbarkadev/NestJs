@@ -48,72 +48,21 @@ let AppService = class AppService {
         const createUserInRoom = await this.prisma.userInRoom.create({
             data: {
                 user: {
-                    connect: {}
-                }
-            }
-        });
-        return createUserInRoom;
-    }
-    async getUsersOfRoom(room_id) {
-        const userInRoom = await this.prisma.userInRoom.findMany({
-            where: { roomId: room_id },
-            include: { user: true }
-        });
-        return userInRoom;
-    }
-    async getRooms(user_id) {
-        const rooms = await this.prisma.userInRoom.findMany({
-            where: { userId: user_id },
-            select: {
-                user_role: true,
-                userId: false,
-                roomId: false,
-                room: {
-                    select: {
-                        name: true,
-                        type: true,
-                        users: false
-                    }
-                }
-            },
-        });
-        return rooms;
-    }
-    async addUserToRoom(room_id, user_id) {
-        const createUserInRoom = await this.prisma.userInRoom.create({
-            data: {
-                user: {
                     connect: {
-                        id: user_id,
+                        username: user_name
                     },
                 },
                 room: {
-                    connect: {
-                        id: room_id
+                    create: {
+                        name: fields.room_name,
+                        type: fields.room_type,
+                        password: fields.password
                     },
                 },
-                user_role: 'user',
+                user_role: 'owner',
             }
         });
         return createUserInRoom;
-    }
-    async sendMessageToRoom(room_id, content_msg, user_id) {
-        const messageRoom = await this.prisma.messageRoom.create({
-            data: {
-                from: user_id,
-                to_room: room_id,
-                content_msg: content_msg,
-                wasRead: true,
-            },
-        });
-        return messageRoom;
-    }
-    async getMessages(room_id) {
-        const messageRoom = await this.prisma.messageRoom.findMany({
-            where: { to_room: room_id },
-            orderBy: { id: 'desc' }
-        });
-        return messageRoom;
     }
 };
 AppService = __decorate([
