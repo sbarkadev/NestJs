@@ -1,12 +1,14 @@
 import { MessageRoom, User, UserInRoom } from '@prisma/client';
+import { createRoom } from './DTO/create-room.dto';
+import { createUser } from './DTO/create-users.dto';
 import { usersName } from './DTO/users-name.dto';
 import { PrismaService } from './prisma/prisma.service';
 export declare class AppService {
     private prisma;
     constructor(prisma: PrismaService);
-    createUser(token42_api: string, username: string, losses: number, wins: number, ladder_level: number): Promise<User>;
-    getusersNames(): Promise<usersName[]>;
-    createRoom(user_id: number, room_name: string, room_type: string, pass: string): Promise<UserInRoom>;
+    createUser(fields: createUser): Promise<User>;
+    getusersName(): Promise<usersName[]>;
+    createRoom(user_name: string, fields: createRoom): Promise<UserInRoom>;
     getUsersOfRoom(room_id: number): Promise<UserInRoom[]>;
     getRooms(user_id: number): Promise<{
         room: {

@@ -67,10 +67,10 @@ datasource db {
 
 model User {
 
-  id Int @id @default(autoincrement())
+  //id Int @id @default(autoincrement())
   avatar String ?
   token42_api String @unique
-  username String @unique
+  username String @id
   email   String ? @unique
   phoneNumber  String ?  @unique
   tokenGoogle_api  String ?  @unique
@@ -86,13 +86,13 @@ model User {
 
 
 model UserInRoom {
-  user User @relation(fields: [userId] , references: [id])
-  userId Int
-  room Room @relation(fields: [roomId], references: [id])
-  roomId Int
+  user User @relation(fields: [userName] , references: [username])
+  userName String
+  room Room @relation(fields: [roomName], references: [name])
+  roomName String
   user_role String
 
-  @@id([userId , roomId])
+  @@id([userName , roomName])
 
 }
 
@@ -100,8 +100,8 @@ model UserInRoom {
 // a room can have multiple admin  (0 - n)
 // a room can have multiple users  (1 - n)
 model Room {
-  id Int @id @default(autoincrement())
-  name String @unique
+ // id Int @id @default(autoincrement())
+  name String @id
   type String 
   users UserInRoom[]
   password String
@@ -112,10 +112,10 @@ model Room {
 model MessageRoom {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
-  user User @relation(fields: [from] , references: [id])
-  from Int
-  room Room @relation(fields: [to_room] , references: [id])
-  to_room Int
+  user User @relation(fields: [from] , references: [username])
+  from String
+  room Room @relation(fields: [to_room] , references: [name])
+  to_room String
   content_msg String
   wasRead Boolean
 }
@@ -123,9 +123,9 @@ model MessageRoom {
 
 model Friendship {
   id Int @id @default(autoincrement())
-  user1 User @relation("friend1" ,fields: [user_1] , references: [id]) 
-  user_1 Int
-  user2 User @relation("friend2" , fields: [user_2] , references: [id])
-  user_2 Int
+  user1 User @relation("friend1" ,fields: [user_1] , references: [username]) 
+  user_1 String
+  user2 User @relation("friend2" , fields: [user_2] , references: [username])
+  user_2 String
   state_block Boolean
 }

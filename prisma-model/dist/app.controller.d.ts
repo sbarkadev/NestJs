@@ -1,18 +1,20 @@
-import { MessageRoom, UserInRoom } from '@prisma/client';
+import { MessageRoom, User, UserInRoom } from '@prisma/client';
 import { AppService } from './app.service';
+import { createRoom } from './DTO/create-room.dto';
+import { createUser } from './DTO/create-users.dto';
 export declare class AppController {
     private readonly appService;
     constructor(appService: AppService);
-    createUser(): void;
-    getUsersNames(): Promise<any>;
-    createRoom(): Promise<void>;
+    createUser(fields: createUser): Promise<User>;
+    getUsersName(): Promise<any>;
+    createRoom(name: string, fields: createRoom): Promise<UserInRoom>;
     addUserToRoom(room: any, user: any): void;
     getRooms(id: any): Promise<{
-        user_role: string;
         room: {
             name: string;
             type: string;
         };
+        user_role: string;
     }[]>;
     getUserOfRoom(id: any): Promise<UserInRoom[]>;
     sendMessageToRoom(): void;

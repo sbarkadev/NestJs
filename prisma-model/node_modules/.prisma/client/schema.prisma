@@ -77,7 +77,8 @@ model User {
   tokenSms_api  String ?  @unique
   losses Int 
   wins Int
-
+  friend Friendship[] @relation("friend1")
+  riend Friendship[] @relation("friend2")
   ladder_level Int
   rooms UserInRoom[]
   messages MessageRoom[]
@@ -117,4 +118,14 @@ model MessageRoom {
   to_room Int
   content_msg String
   wasRead Boolean
+}
+
+
+model Friendship {
+  id Int @id @default(autoincrement())
+  user1 User @relation("friend1" ,fields: [user_1] , references: [id]) 
+  user_1 Int
+  user2 User @relation("friend2" , fields: [user_2] , references: [id])
+  user_2 Int
+  state_block Boolean
 }

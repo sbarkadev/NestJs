@@ -16,19 +16,20 @@ let AppService = class AppService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async createUser(token42_api, username, losses, wins, ladder_level) {
-        const createUser = await this.prisma.user.create({
-            data: {
-                token42_api: token42_api,
-                username: username,
-                losses: losses,
-                wins: wins,
-                ladder_level: ladder_level,
+    async createUser(fields) {
+        let userCount = await this.prisma.user.count({
+            where: {
+                username: fields.username
             }
+        });
+        if (userCount != 0)
+            return null;
+        const createUser = await this.prisma.user.create({
+            data: fields
         });
         return createUser;
     }
-    async getusersNames() {
+    async getusersName() {
         const users = await this.prisma.user.findMany({
             select: {
                 username: true
@@ -36,22 +37,19 @@ let AppService = class AppService {
         });
         return users;
     }
-    async createRoom(user_id, room_name, room_type, pass) {
+    async createRoom(user_name, fields) {
+        let userCount = await this.prisma.room.count({
+            where: {
+                name: fields.room_name
+            }
+        });
+        if (userCount != 0)
+            return null;
         const createUserInRoom = await this.prisma.userInRoom.create({
             data: {
                 user: {
-                    connect: {
-                        id: user_id,
-                    },
-                },
-                room: {
-                    create: {
-                        name: room_name,
-                        type: room_type,
-                        password: pass
-                    },
-                },
-                user_role: 'owner',
+                    connect: {}
+                }
             }
         });
         return createUserInRoom;

@@ -15,30 +15,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
+const create_room_dto_1 = require("./DTO/create-room.dto");
+const create_users_dto_1 = require("./DTO/create-users.dto");
 let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
     }
-    createUser() {
-        this.appService.createUser('token1', 'sbarka', 0, 0, 0);
-        this.appService.createUser('token2', 'ssghuri', 0, 0, 0);
-        this.appService.createUser('token3', 'assmaa', 0, 0, 0);
-        this.appService.createUser('token4', 'Alae', 0, 0, 0);
-        this.appService.createUser('token5', 'narine', 0, 0, 0);
-        this.appService.createUser('token6', 'mohammed', 0, 0, 0);
-        this.appService.createUser('token7', 'sara', 0, 0, 0);
+    createUser(fields) {
+        return this.appService.createUser(fields);
     }
-    async getUsersNames() {
+    async getUsersName() {
         let users;
-        await this.appService.getusersNames().then(value => {
+        await this.appService.getusersName().then(value => {
             users = value;
         });
         return users;
     }
-    async createRoom() {
-        await this.appService.createRoom(2, 'room1', 'PUB', '');
-        await this.appService.createRoom(1, 'room2', 'PUB', '');
-        await this.appService.createRoom(3, 'room3', 'PROT', '123456789');
+    async createRoom(name, fields) {
+        return this.appService.createRoom(2, 'room1', 'PUB', '');
     }
     addUserToRoom(room, user) {
         this.appService.addUserToRoom(parseInt(room), parseInt(user));
@@ -62,21 +56,24 @@ let AppController = class AppController {
     }
 };
 __decorate([
-    (0, common_1.Get)('/createUsers'),
+    (0, common_1.Post)('/createUser'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [create_users_dto_1.createUser]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "createUser", null);
 __decorate([
-    (0, common_1.Get)('/getUsersNames'),
+    (0, common_1.Get)('/getUsersName'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], AppController.prototype, "getUsersNames", null);
+], AppController.prototype, "getUsersName", null);
 __decorate([
-    (0, common_1.Get)('/createRooms'),
+    (0, common_1.Get)('/createRoom/:user_name'),
+    __param(0, (0, common_1.Param)('user_name')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String, create_room_dto_1.createRoom]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "createRoom", null);
 __decorate([

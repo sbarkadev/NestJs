@@ -1,5 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 import { MessageRoom, PrismaClient, Room, User, UserInRoom, } from '@prisma/client';
+import { createRoom } from './DTO/create-room.dto';
+import { createUser } from './DTO/create-users.dto';
 import { usersName } from './DTO/users-name.dto';
 import { PrismaService } from './prisma/prisma.service';
 
@@ -7,20 +9,27 @@ import { PrismaService } from './prisma/prisma.service';
 export class AppService {
  constructor(private prisma :PrismaService) {}
 
-  async createUser(token42_api : string , username : string , losses : number , wins : number ,ladder_level : number): Promise<User> {
-    const createUser = await this.prisma.user.create({
-      data : {
-        token42_api : token42_api ,
-        username : username,
-        losses : losses,
-        wins : wins,
-        ladder_level : ladder_level,
+  async createUser(fields : createUser): Promise<User> {
+    let userCount = await this.prisma.user.count
+    (
+      {
+        where : {
+          username : fields.username
+        }
       }
-  });
+    )
+   if (userCount != 0)
+      return null;
+
+    const createUser = await this.prisma.user.create({
+      data : fields
+    });
+ 
   return createUser;
 }
 
-async getusersNames(): Promise<usersName[]> {
+
+async getusersName(): Promise<usersName[]> {
   const users = await this.prisma.user.findMany({
     select : {
       username : true
@@ -29,25 +38,47 @@ async getusersNames(): Promise<usersName[]> {
   return users;
 }
 
-async createRoom(user_id : number , room_name : string , room_type : string , pass : string): Promise<UserInRoom> {
-  const createUserInRoom = await this.prisma.userInRoom.create({
+async createRoom(user_name : string , fields : createRoom): Promise<UserInRoom> {
+
+  let userCount = await this.prisma.room.count
+  (
+    {
+      where : {
+        name : fields.room_name
+      }
+    }
+  )
+  if (userCount != 0)
+    return null;
+
+
+  const createUserInRoom = await this.prisma.userInRoom.create
+  ({
+   
       data : {
         user : {
           connect : {
-            id : user_id ,
-          },
-        },
-        room : {
-          create : 
-            {
-              name : room_name,
-              type : room_type,
-              password : pass
-            },
-        },
-        user_role : 'owner',
+            
+          }
+        }
       }
-      });
+  });
+  // ({
+  //     data : {
+  //       user : {
+  //         connect : {
+  //           name : name ,
+  //         },
+  //       },
+  //       room : {
+  //         create : 
+  //           {
+  //            fields
+  //           },
+  //       },
+  //       user_role : 'owner',
+  //     }
+  //     });
   return createUserInRoom;
 }
 

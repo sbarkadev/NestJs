@@ -1,7 +1,9 @@
-import { Controller, Get, Param, Render } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render } from '@nestjs/common';
 import { MessageRoom, User, UserInRoom } from '@prisma/client';
 import { Console } from 'console';
 import { AppService } from './app.service';
+import { createRoom } from './DTO/create-room.dto';
+import { createUser } from './DTO/create-users.dto';
 import { usersName } from './DTO/users-name.dto';
 
 @Controller()
@@ -9,52 +11,30 @@ export class AppController {
   constructor(private readonly appService: AppService) {
 
   }
-
-  // every user create account is added to database
-  // create 5 users
-
-  @Get('/createUsers')
-  createUser()
+  // create a single user 
+  @Post('/createUser')
+  createUser(@Body() fields : createUser)
   {
-   
-    //id : 1
-    this.appService.createUser('token1','sbarka', 0 , 0 , 0);
-    //id : 2
-    this.appService.createUser('token2','ssghuri', 0 , 0 , 0);
-    //id : 3
-    this.appService.createUser('token3','assmaa', 0 , 0 , 0);
-    //id : 4
-    this.appService.createUser('token4','Alae', 0 , 0 , 0);
-    //id : 5
-    this.appService.createUser('token5','narine', 0 , 0 , 0);
-    //id : 6
-    this.appService.createUser('token6','mohammed', 0 , 0 , 0);
-    //id : 7
-    this.appService.createUser('token7','sara', 0 , 0 , 0);  
+    return this.appService.createUser(fields);
   }
 
 
-// get name of users in the application
- @Get('/getUsersNames')
- async getUsersNames()  
+// get name of users
+ @Get('/getUsersName')
+ async getUsersName()  
   {
       let users ;
-       await this.appService.getusersNames().then(value => {
+      await this.appService.getusersName().then(value => {
         users = value; 
       });
       return users;
   }
 
   // create rooms  by some users (owners of room)
-  @Get('/createRooms')
-  async createRoom()
+  @Get('/createRoom/:user_name')
+  async createRoom(@Param('user_name') name :string , @Body() fields : createRoom )
   {
-    // user id : 2 (ssghuri) create room_id: 1
-    await this.appService.createRoom(2, 'room1', 'PUB','');
-    // user id : 1 (sbarka) create room_id: 2
-    await this.appService.createRoom(1, 'room2', 'PUB','');
-    // user id : 3 (assmaa)  create room_id: 3
-    await this.appService.createRoom(3, 'room3', 'PROT','123456789');
+    return this.appService.createRoom(2, 'room1', 'PUB','');
   }
 
   @Get('/addUsers/:id_room/:id_user')
